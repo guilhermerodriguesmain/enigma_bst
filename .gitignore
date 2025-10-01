@@ -70,3 +70,9 @@ coverage.xml
 # MacOS / Windows
 .DS_Store
 Thumbs.db
+
+#keys and test files
+encryption_key.py
+descryption_key.py
+test.py
+test_file.txt
