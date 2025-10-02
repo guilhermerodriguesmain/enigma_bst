@@ -3,12 +3,12 @@
 # Este módulo integra vários módulos de processamento para demonstrar sua funcionalidade.
 
 # Importa os módulos necessários
-from modules.input_text import ListStringConverter 
-from modules.ascii_converter import AsciiConverter 
-from modules.PolySum_obfuscador import LogExpObfuscator
-from modules.binary_converter import BinaryConverter 
+from modules.Input_text import ListStringConverter 
+from modules.Ascii_converter import AsciiConverter 
+from modules.IntegralProcessor import IntegralProcessor
+from modules.Binary_converter import BinaryConverter 
 from modules.Tree import Tree 
-from modules.json_exporter import JsonExporter 
+from modules.Json_exporter import JsonExporter 
 from tkinter import Tk, filedialog
 
 def main_ecripting(a,b):
@@ -23,12 +23,12 @@ def main_ecripting(a,b):
     
     
     # Passo 3: Realizar cálculos integrais simples nos valores ASCII
-    obfuscador = LogExpObfuscator(b)
-    cripto = obfuscador.encrypt(ascii_values)
+    obfuscador = IntegralProcessor()
+    cripto = obfuscador.encrypt(ascii_values, key)
     
     # Passo 4: Converter os valores integrais para binário
     binary_converter = BinaryConverter()
-    binary_values = binary_converter.encrypt(cripto)
+    binary_values = binary_converter.float_bin_converter(cripto)
     
     
     # passo 5: Montar a árvore binária em pós ordem com os valores binários
@@ -56,11 +56,11 @@ def main_decripting(a):
 
     # Passo 3: Converter os valores binários para decimais
     binary_converter = BinaryConverter()
-    decimal_values = binary_converter.decrypt(values)
+    decimal_values = binary_converter.bin_float_converter(values)
 
     # Passo 4: Realizar o processo inverso dos cálculos integrais para obter os valores ASCII originais
-    obfuscador = LogExpObfuscator(5) # chave 0 para descriptografar
-    values = obfuscador.decrypt(decimal_values)
+    obfuscador = IntegralProcessor() # chave 0 para descriptografar
+    values = obfuscador.decrypt(decimal_values, key)
     
     # Passo 5: Converter os valores ASCII de volta para caracteres
     ascii_converter = AsciiConverter()
