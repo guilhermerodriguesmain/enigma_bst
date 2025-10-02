@@ -30,7 +30,7 @@ class IntegralProcessor:
         return decripted
     
 # exemplo de uso
-"""
+
 if __name__ == "__main__":
     processor = IntegralProcessor()
     
@@ -42,7 +42,7 @@ if __name__ == "__main__":
     
     decrypted_numbers = processor.decrypt(encrypted_numbers)
     print(f"Decrypted Numbers: {decrypted_numbers}")  
-"""
+
 # #fim do código   
 # versão 1.0
 # data 2025-09-30
