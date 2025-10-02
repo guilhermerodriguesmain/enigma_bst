@@ -72,7 +72,7 @@ coverage.xml
 Thumbs.db
 
 # key files
-descryption.key
-encryption.key
+descryption_key.py
+encryption_key.py
 test.py
 test_file.txt
