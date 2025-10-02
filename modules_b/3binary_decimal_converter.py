@@ -1,51 +1,48 @@
+
 from typing import Any
 
+class BinarioDecoder:
+    """Classe para conversão e descriptografia de números binários."""
 
-'''
-    Como usar: Após o main defina uma variavel com numeros binarios, exemplo:
-    ''s1 = "1101 1010 1111"
-    print("Teste string:", s1)
-    print("Decimal:", descriptografar_binario(s1))'' após isso só dar um play q ele converte para numeros decimais  
-'''
+    @staticmethod
+    def binario_para_decimal(b: str) -> int:
+        """Converte binário (com ou sem fração) para decimal arredondado."""
+        if '.' in b:
+            parte_int, parte_frac = b.split('.')
+            dec_int = int(parte_int, 2) if parte_int else 0
+            dec_frac = sum(int(bit) * 2**(-i-1) for i, bit in enumerate(parte_frac))
+            return round(dec_int + dec_frac)
+        else:
+            return int(b, 2)
 
-def descriptografar_binario(bin_str: str) -> Any:
-    """
-    Recebe uma string binária (pode ter espaços, linhas ou ser contínua)
-    e retorna os valores decimais correspondentes.
-    Agora trata os binários como números puros (não ASCII).
-    """
-    try:
-        bin_str = bin_str.strip().replace('\n', ' ').replace('\r', ' ')
-        partes = bin_str.split()
+    def descriptografar_binario(self, bin_str: str) -> list[int]:
+        """Recebe string binária e retorna lista de decimais arredondados."""
+        try:
+            bin_str = bin_str.strip().replace('\n', ' ').replace('\r', ' ')
+            partes = bin_str.split()
+            return [self.binario_para_decimal(b) for b in partes if all(c in '01.' for c in b)]
+        except Exception:
+            return []
 
-        # Se só tem um bloco contínuo, mantém assim
-        if len(partes) == 1 and all(c in '01' for c in partes[0]):
-            partes = [partes[0]]
-
-        # Converte todos os binários válidos
-        decimais = [int(b, 2) for b in partes if all(c in '01' for c in b)]
-
-        return decimais if len(decimais) > 1 else decimais[0]
-    except Exception:
-        return bin_str  # se falhar, retorna original
-
-def decodificar_json(dado: Any) -> Any:
-    """
-    Percorre recursivamente o JSON e descriptografa strings binárias.
-    """
-    if isinstance(dado, str):
-        return descriptografar_binario(dado)
-    elif isinstance(dado, list):
-        return [decodificar_json(item) for item in dado]
-    elif isinstance(dado, dict):
-        return {k: decodificar_json(v) for k, v in dado.items()}
-    else:
+    def decodificar_json(self, dado: Any) -> Any:
+        """Percorre JSON e descriptografa strings binárias."""
+        if isinstance(dado, str):
+            return self.descriptografar_binario(dado)
+        elif isinstance(dado, list):
+            return [self.decodificar_json(item) for item in dado]
+        elif isinstance(dado, dict):
+            return {k: self.decodificar_json(v) for k, v in dado.items()}
         return dado
 
-# Testes simples
-if __name__ == "__main__":
-    # Exemplo com lista de strings binárias
-    l1 = ["1101", "1010", "1111"]
-    print("\nTeste lista:", l1)
-    print("Decimal:", decodificar_json(l1))
 
+# ----------------- TESTE -----------------
+if __name__ == "__main__":
+    decoder = BinarioDecoder()
+
+    s1 = "1101 101.1 10.06"
+    print("Teste string:", s1)
+    print("Decimal arredondado:", decoder.descriptografar_binario(s1))  # [13, 6, 2]
+
+    s2 = ["101", "111.01"]
+    print("Teste JSON:", s2)
+    print("Decimal arredondado:", decoder.decodificar_json(s2))  # [[5], [7]]
