@@ -7,7 +7,6 @@ para usar este módulo é necessário passar o local do arquivo como parâmetro 
 métodos : convert - retorna uma lista de caracteres
             convert_json - retorna uma lista interpretada de um formato JSON
 """
-from tkinter import Tk, filedialog
 
 import json
 class ListStringConverter:
@@ -20,23 +19,24 @@ class ListStringConverter:
             return json.loads(content)
 
     def convert(self):
-        #Tk().withdraw()  # esconde a janela principal
-        #caminho = filedialog.askopenfilename(title="Selecione o arquivo TXT", filetypes=[("Text files", "*.txt")])
-        #self.filename = caminho
+        
         with open(self.filename, 'r', encoding='utf-8') as file:
             content = file.read().strip()
             return list(content)
-        
+    
+    def caracter_to_text(self, char_list, output_file):
+        with open(output_file, 'w', encoding='utf-8') as file:
+            file.write(''.join(char_list))
+        print(f"Conteúdo salvo em {output_file}")
 
 #Exemplo de uso
 if __name__ == "__main__":
-    converter = ListStringConverter('')
-    
+    converter = ListStringConverter()
     char_list = converter.convert()
     print(f"Character List: {char_list}")
     
-    json_list = converter.convert_json()
-    print(f"JSON List: {json_list}")
+#    json_list = converter.convert_json()
+#    print(f"JSON List: {json_list}")
 
 # fim do código
 # feito com ajuda de chatGPT
