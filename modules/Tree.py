@@ -1,4 +1,7 @@
-
+"""
+melhoria -> nova feature 
+arvore precisa iterar sobre uma lista de valores colocar na ordem certa e retornar em forma de lista
+"""""
 class TreeNode:
     def __init__(self, value):
         self.value = value
@@ -80,16 +83,7 @@ class Tree:
         
     #---------------------------------------------------inserindo uma lista na árvore (criptografia)
     def Pos_order_insert(self, values: list):
-        """
-        Inserts multiple values into the tree in the order they appear in the given list.
-
-        Args:
-            values (list): A list of values to be inserted into the tree.
-
-        Note:
-            The insertion is performed in post-order fashion, meaning each value is inserted sequentially
-            using the internal recursive insert method.
-        """
+        
         for value in values:
             self.root = self._insert_recursive(self.root, value)
 
