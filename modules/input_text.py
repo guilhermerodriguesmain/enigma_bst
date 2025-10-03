@@ -14,9 +14,15 @@ class ListStringConverter:
         self.filename = filename
 
     def convert_json(self):
+        """Lê o arquivo JSON e retorna a chave pública e a lista da árvore."""
         with open(self.filename, 'r', encoding='utf-8') as file:
             content = file.read().strip()
-            return json.loads(content)
+            data = json.loads(content)
+
+            public_key = data.get("public_key")
+            tree_post_order = data.get("tree_post_order", [])
+
+            return public_key, tree_post_order
 
     def convert(self):
         
@@ -25,9 +31,9 @@ class ListStringConverter:
             return list(content)
     
     def caracter_to_text(self, char_list, output_file):
-        with open(output_file, 'w', encoding='utf-8') as file:
+        with open(str(output_file + '.txt'), 'w', encoding='utf-8') as file:
             file.write("".join(str(c) for c in char_list))
-        print(f"Conteúdo salvo em {output_file}")
+        print(f"Conteúdo salvo em {output_file}.txt")
 
 #Exemplo de uso
 if __name__ == "__main__":
