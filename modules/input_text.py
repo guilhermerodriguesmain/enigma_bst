@@ -5,8 +5,9 @@ Itera sobre um arquivo de texto e converte seu conteúdo em uma lista de caracte
 para usar este módulo é necessário passar o local do arquivo como parâmetro para o método convert ou convert_json
 
 métodos : convert - retorna uma lista de caracteres
-          convert_json - retorna uma lista interpretada de um formato JSON
+            convert_json - retorna uma lista interpretada de um formato JSON
 """
+
 import json
 class ListStringConverter:
     def __init__(self, filename):
@@ -18,9 +19,24 @@ class ListStringConverter:
             return json.loads(content)
 
     def convert(self):
+        
         with open(self.filename, 'r', encoding='utf-8') as file:
             content = file.read().strip()
             return list(content)
+    
+    def caracter_to_text(self, char_list, output_file):
+        with open(output_file, 'w', encoding='utf-8') as file:
+            file.write("".join(str(c) for c in char_list))
+        print(f"Conteúdo salvo em {output_file}")
+
+#Exemplo de uso
+if __name__ == "__main__":
+    converter = ListStringConverter()
+    char_list = converter.convert()
+    print(f"Character List: {char_list}")
+    
+#    json_list = converter.convert_json()
+#    print(f"JSON List: {json_list}")
 
 # fim do código
 # feito com ajuda de chatGPT
