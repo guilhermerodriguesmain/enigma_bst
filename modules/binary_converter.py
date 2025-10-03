@@ -44,6 +44,7 @@ class BinaryConverter:
         for string_bin in binaries:
             if "#" in string_bin:
                 part_int, part_frac = string_bin.split("#")
+                # refactor usando join
                 int_num = int(part_int, 2)
                 frac_num = sum(int(bit) * (2 ** -(i+1)) for i, bit in enumerate(part_frac))
                 floats.append(int_num + frac_num)
@@ -62,5 +63,24 @@ if __name__ == "__main__":
     encrypted_binaries = converter.float_bin_converter(original_numbers)
     print(f"Encrypted Binaries: {encrypted_binaries}")
     
-    decrypted_numbers = converter.bin_float_converter(encrypted_binaries)
+    
+    binarios = [
+    "10100010100#0",
+    "10011101110#1",
+    "10101000110#0",
+    "10101000110#0",
+    "10101101011#1",
+    "110010000#0",
+    "10111001111#1",
+    "10101101011#1",
+    "10110010001#0",
+    "10101000110#0",
+    "10011100010#0"
+]
+    decrypted_numbers = converter.bin_float_converter(binarios)
     print(f"Decrypted Numbers: {decrypted_numbers}")
+
+# teste hello world
+    
+    #descripto = converter.bin_float_converter(binarios)
+    #print(descripto)
