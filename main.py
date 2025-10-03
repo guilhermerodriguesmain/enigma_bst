@@ -8,6 +8,7 @@ from modules.Ascii_converter import AsciiConverter
 from modules.IntegralProcessor import IntegralProcessor
 from modules.Binary_converter import BinaryConverter 
 from modules.Tree import Tree 
+from modules.Tree_visualizer import TreeVisualizer
 from modules.Json_exporter import JsonExporter 
 from tkinter import Tk, filedialog
 
@@ -24,7 +25,7 @@ def main_ecripting(a,b):
     
     # Passo 3: Realizar cálculos integrais simples nos valores ASCII
     obfuscador = IntegralProcessor()
-    cripto = obfuscador.encrypt(ascii_values, key)
+    cripto = obfuscador.encrypt(ascii_values, b)
     
     # Passo 4: Converter os valores integrais para binário
     binary_converter = BinaryConverter()
@@ -33,43 +34,19 @@ def main_ecripting(a,b):
     
     # passo 5: Montar a árvore binária em pós ordem com os valores binários
     tree = Tree()
-    tree.Pos_order_insert(binary_values)
-    values = tree.post_order_crypto()
-    print("Valores em pós ordem:", values)
+    tree.pos_order_insert(binary_values)
+    visualizer = TreeVisualizer(tree)
+    #visualizer.plot()
+    values = tree.post_order_list()
     
     
     # passo 6: exportar a árvore em pós ordem para um arquivo txt em formato JSON
     exporter = JsonExporter(values)
     exporter.export_to_json('tree_output.txt')
     
-def main_decripting(a):
-    
-    # Passo 1: Ler o arquivo txt com a árvore em pós ordem em formato JSON e montar a árvore binária
-    input_text= ListStringConverter(a)
-    list_values = input_text.convert_json()
-    
-    # Passo 2: Percorrer a árvore em pós ordem e salvar os valores em uma lista
-    tree = Tree()
-    tree.Pos_order_insert(list_values)
-    values = tree.post_order_crypto()
-    print("Valores em pós ordem:", values)
 
-    # Passo 3: Converter os valores binários para decimais
-    binary_converter = BinaryConverter()
-    decimal_values = binary_converter.bin_float_converter(values)
 
-    # Passo 4: Realizar o processo inverso dos cálculos integrais para obter os valores ASCII originais
-    obfuscador = IntegralProcessor() # chave 0 para descriptografar
-    values = obfuscador.decrypt(decimal_values, key)
     
-    # Passo 5: Converter os valores ASCII de volta para caracteres
-    ascii_converter = AsciiConverter()
-    char_list = ascii_converter.convert_multiple_from_ascii(values)
-    
-    # Passo 6: Juntar a lista de caracteres em uma string e salvar em um arquivo de texto
-    input_text.caracter_to_text(char_list, 'decrypted_output.txt')
-
-    pass
 # execução
 
 if __name__ == "__main__":
@@ -80,6 +57,3 @@ if __name__ == "__main__":
     key = int(entrada)
 
     main_ecripting(caminho,key)
-
-    main_decripting('D:\\FACULDADE\\Periodos\\quarto_periodo\\EDA\\tree_output.txt',)
-# main_decripting('tree_output.txt')

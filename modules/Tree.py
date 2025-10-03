@@ -55,13 +55,13 @@ class Tree:
 
     #----------------------------- Impressão gráfica da árvore
     def print_tree(self):
-        if not self.root:
-            print("Árvore vazia")
-            return
-        self._print(self.root, 0)
+        self._print_tree(self.root, "", True)
 
-    def _print(self, node, level):
-        if node is not None:
-            self._print(node.right, level + 1)
-            print("    " * level + str(node.value))
-            self._print(node.left, level + 1)
+    def _print_tree(self, node, prefix, is_tail):
+        if node:
+            print(prefix + ("└── " if is_tail else "├── ") + str(node.value))
+            if node.left or node.right:
+                if node.right:
+                    self._print_tree(node.right, prefix + ("    " if is_tail else "│   "), False)
+                if node.left:
+                    self._print_tree(node.left, prefix + ("    " if is_tail else "│   "), True)
