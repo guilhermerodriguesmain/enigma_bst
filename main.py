@@ -48,37 +48,6 @@ def main_ecripting(a):
     pub_key=0
     private_key = pub_key**2
     
-    # Passo 1: Ler o arquivo de texto e converter para uma lista de caracteres
-    input_text= ListStringConverter(a)
-    char_list = input_text.convert() # retorna publickey, charlist
-    pub_key=len(char_list)
-    
-    # Passo 2: Converter a lista de caracteres para seus valores ASCII decimais
-    ascii_converter = AsciiConverter()
-    ascii_values = ascii_converter.convert_multiple_to_ascii(char_list)
-    
-    
-    # Passo 3: Realizar cálculos integrais simples nos valores ASCII
-    obfuscador = IntegralProcessor()
-    cripto = obfuscador.encrypt(ascii_values, private_key)
-    
-    # Passo 4: Converter os valores integrais para binário
-    binary_converter = BinaryConverter()
-    binary_values = binary_converter.float_bin_converter(cripto)
-    
-    
-    # passo 5: Montar a árvore binária em pós ordem com os valores binários
-    tree = Tree()
-    tree.pos_order_insert(binary_values)
-    # A visualização da árvore no terminal
-    tree.print_tree()
-    values = tree.post_order_list()
-    
-    
-    # passo 6: exportar a árvore em pós ordem para um arquivo txt em formato JSON
-    exporter = JsonExporter(values,pub_key)
-    exporter.export_to_json('tree_output.txt')
-    
 def main_decripting(a):
     # Passo 1: Ler o JSON
     input_text = ListStringConverter(a)
