@@ -12,7 +12,41 @@ from modules.Tree_visualizer import TreeVisualizer
 from modules.json_exporter import JsonExporter 
 from tkinter import Tk, filedialog
 
+
 def main_ecripting(a):
+    # Passo 1: Ler o arquivo de texto
+    input_text = ListStringConverter(a)
+    char_list = input_text.convert()
+    
+    # Passo 2: Definir as chaves APÓS ter a informação necessária
+    pub_key = len(char_list)
+    # CORREÇÃO CRÍTICA: Mover o cálculo da chave privada para aqui!
+    private_key = pub_key**2 
+    
+    # Passo 3: Converter para ASCII
+    ascii_converter = AsciiConverter()
+    ascii_values = ascii_converter.convert_multiple_to_ascii(char_list)
+    
+    # Passo 4: Criptografar com a chave correta
+    obfuscador = IntegralProcessor()
+    cripto = obfuscador.encrypt(ascii_values, private_key)
+    
+    # Passo 5: Converter para binário
+    binary_converter = BinaryConverter()
+    binary_values = binary_converter.float_bin_converter(cripto)
+    
+    # Passo 6: Montar a árvore
+    tree = Tree()
+    tree.pos_order_insert(binary_values)
+    # A visualização pode ser comentada para testes ou execuções não interativas
+    # visualizer = TreeVisualizer(tree)
+    # visualizer.plot()
+    values = tree.post_order_list()
+    
+    # Passo 7: Exportar para JSON
+    exporter = JsonExporter(values, pub_key)
+    # É uma boa prática usar .json para arquivos JSON
+    exporter.export_to_json('tree_output.json')
     pub_key=0
     private_key = pub_key**2
     
@@ -47,39 +81,40 @@ def main_ecripting(a):
     exporter = JsonExporter(values,pub_key)
     exporter.export_to_json('tree_output.txt')
     
-    
-
 def main_decripting(a):
+    # Passo 1: Ler o JSON
+    input_text = ListStringConverter(a)
+    # SUGESTÃO: Renomear variável para maior clareza
+    pub_key, tree_values = input_text.convert_json()
     
-    """private key = public key **2 """
-    # passo 1: ler arquivo TXT com json
-    input_text= ListStringConverter(a)
-    char_list = input_text.convert_json()
-    private_key = char_list[0]**2
+    # Passo 2: Calcular a chave privada a partir da chave pública lida
+    private_key = pub_key**2
     
-    # passo 2: montar arvore binaria com valores do json
+    # Passo 3: Montar a árvore com os valores lidos
     tree = Tree()
-    tree.pos_order_insert(char_list[1])
-    visualizer = TreeVisualizer(tree)
-    visualizer.plot()
+    tree.pos_order_insert(tree_values)
+    # A visualização pode ser comentada
+    # visualizer = TreeVisualizer(tree)
+    # visualizer.plot()
     values = tree.post_order_list()
     
-    # passo 3: converter valores binarios para decimais
+    # Passo 4: Converter de binário para float
     binary_converter = BinaryConverter()
     binary_values = binary_converter.bin_float_converter(values)
     
-    # passo 4: descazer integral
+    # Passo 5: Desfazer a integral para obter os códigos ASCII
     obfuscador = IntegralProcessor()
     cripto = obfuscador.decrypt(binary_values, private_key)
     
-    # passo 5: converter decimais para caracteres
+    # Passo 6: Converter os códigos ASCII de volta para caracteres
     ascii_converter = AsciiConverter()
-    ascii_values = ascii_converter.convert_multiple_to_ascii(cripto)
+    # Esta linha já estava correta no seu código, ótimo!
+    final_chars = ascii_converter.convert_multiple_from_ascii(cripto)
     
-    # passo 6: tranformar lista de caracteres em texto e exportar em txt
-    file_name = input("digite o nome desejado para o arquivo: ")
-    input_text.caracter_to_text(ascii_values,file_name)
-    
+    # Passo 7: Salvar o texto final em um arquivo
+    file_name = input("Digite o nome desejado para o arquivo de saída: ")
+    input_text.caracter_to_text(final_chars, file_name)
+
     
 # ------------------------------   execução   ----------------------------------------------------
 
