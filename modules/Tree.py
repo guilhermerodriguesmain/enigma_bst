@@ -109,3 +109,48 @@ class Tree:
         tree_root.right = self._recursive_pre_insert(rest_message[midpoint:])
 
         return tree_root
+
+    #-------------------------------------------------------representação da árvore
+    def print_tree(self):
+        if self.root is None:
+            print("A árvore está vazia")
+            return
+        self._recursive_print(self.root, 0)  
+    
+    def _recursive_print(self, node, level):
+        if node is not None:
+            space = 4
+            self._recursive_print(node.right, level + 1)
+            print(" " * (space * level), end="")
+            print(node.value)
+            self._recursive_print(node.left, level + 1)
+
+    #-------------------------------------------------------representação em níveis/identação
+    #-----------------nós esquerdos abaixo e direitos acima
+
+    def __str__(self):
+        if self.root is None:
+            return "A árvore está vazia"
+        
+        return self._str_helper(self.root, "", True)
+
+    def _str_helper(self, node, prefix, is_last):
+        if node is None:
+            return ""
+
+        current_line = prefix + ("`-- " if is_last else "|-- ") + str(node.value) + "\n"
+        prefix_child = prefix + ("    " if is_last else "|   ")
+        
+        children = []
+        if node.right:
+            children.append(node.right)
+        if node.left:
+            children.append(node.left)
+    
+        child_lines = ""
+        for i, child in enumerate(children):
+            is_child_last = (i == len(children) - 1)
+            child_lines += self._str_helper(child, prefix_child, is_child_last)
+            
+        return current_line + child_lines
+        
