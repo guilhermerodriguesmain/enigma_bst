@@ -14,7 +14,7 @@ def test_full_cycle_with_corrected_logic(tmp_path, monkeypatch, mocker):
     # 1. ARRANGE (Preparação)
 
     # Mock de componentes de interface com o usuário e sistema
-    mocker.patch('main.TreeVisualizer.plot', return_value=None)
+    #mocker.patch('main.TreeVisualizer.plot', return_value=None)
     mocker.patch('builtins.input', return_value='final_output') # Simula o usuário digitando o nome do arquivo de saída
     
     # Muda o diretório de trabalho para uma pasta temporária

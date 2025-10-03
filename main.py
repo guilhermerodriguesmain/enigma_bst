@@ -8,7 +8,6 @@ from modules.ascii_converter import AsciiConverter
 from modules.IntegralProcessor import IntegralProcessor
 from modules.binary_converter import BinaryConverter 
 from modules.Tree import Tree 
-from modules.Tree_visualizer import TreeVisualizer
 from modules.json_exporter import JsonExporter 
 from tkinter import Tk, filedialog
 
@@ -39,8 +38,7 @@ def main_ecripting(a):
     tree = Tree()
     tree.pos_order_insert(binary_values)
     # A visualização pode ser comentada para testes ou execuções não interativas
-    # visualizer = TreeVisualizer(tree)
-    # visualizer.plot()
+    tree.print_tree()
     values = tree.post_order_list()
     
     # Passo 7: Exportar para JSON
@@ -72,8 +70,8 @@ def main_ecripting(a):
     # passo 5: Montar a árvore binária em pós ordem com os valores binários
     tree = Tree()
     tree.pos_order_insert(binary_values)
-    visualizer = TreeVisualizer(tree)
-    visualizer.plot()
+    # A visualização da árvore no terminal
+    tree.print_tree()
     values = tree.post_order_list()
     
     
@@ -93,9 +91,8 @@ def main_decripting(a):
     # Passo 3: Montar a árvore com os valores lidos
     tree = Tree()
     tree.pos_order_insert(tree_values)
-    # A visualização pode ser comentada
-    # visualizer = TreeVisualizer(tree)
-    # visualizer.plot()
+    # A visualização da árvore no terminal
+    tree.print_tree()
     values = tree.post_order_list()
     
     # Passo 4: Converter de binário para float
@@ -151,7 +148,8 @@ Escolha com cuidado. A máquina não erra, mas você sim.
             
         elif decisao == 2:
             
-#-----caminho_decript apresenta um bug de congelamento 
+#--------------------------------------------------------------------caminho_decript 
+  
             caminho_decript = filedialog.askopenfilename(
             title="Selecione o arquivo TXT para descriptografar",
             filetypes=[("Text files", "*.txt")]

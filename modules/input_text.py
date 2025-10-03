@@ -23,6 +23,6 @@ class ListStringConverter:
             return list(content)
     
     def caracter_to_text(self, char_list, output_file):
-        with open(str(output_file + '.txt'), 'w', encoding='utf-8') as file:
+        with open((str(output_file) + '.txt'), 'w', encoding='utf-8') as file:
             file.write("".join(str(c) for c in char_list))
         print(f"Conteúdo salvo em {output_file}.txt")

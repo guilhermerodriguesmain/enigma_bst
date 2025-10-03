@@ -17,25 +17,24 @@ class BinaryConverter:
         for float_num in numbers:
             int_part = int(float_num)
             frac_part = float_num - int_part
-            
-            # Parte inteira
-            bin_int = bin(int_part)[2:]
-            
-            # Parte fracionária
-            bin_frac = []
-            frac = frac_part
-            for _ in range(precision):   # limite de precisão binária
-                frac *= 2
-                bit = int(frac)
-                bin_frac.append(str(bit))
-                frac -= bit
-                if frac == 0:
-                    break
-            
-            if bin_frac:
-                binaries.append(bin_int + "#" + "".join(bin_frac))
+            #-----------------------------------verifica se não é um inteiro em formato float
+            if frac_part == 0:
+                binaries.append(bin(int_part)[2:])
             else:
-                binaries.append(bin_int)
+                # Parte inteira
+                bin_int = bin(int_part)[2:]
+                
+                # Parte fracionária
+                bin_frac = []
+                frac = frac_part
+                for _ in range(precision):   # limite de precisão binária
+                    frac *= 2
+                    bit = int(frac)
+                    bin_frac.append(str(bit))
+                    frac -= bit
+                    if frac == 0:
+                        break
+                binaries.append(bin_int + "#" + "".join(bin_frac))
         
         return binaries
 
