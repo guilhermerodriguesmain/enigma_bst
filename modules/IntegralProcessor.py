@@ -18,17 +18,3 @@ class IntegralProcessor:
             n = int((2 * R) / (key**2))   # inverte a fórmula R = num*i²/2
             decripted.append(n)
         return decripted
-
-
-# exemplo de uso
-if __name__ == "__main__":
-    processor = IntegralProcessor()
-    
-    original_numbers = [65,66,67,65]  # testando com número repetido
-    print(f"Original Numbers: {original_numbers}")
-    
-    encrypted_numbers = processor.encrypt(original_numbers)
-    print(f"Encrypted Numbers: {encrypted_numbers}")
-    
-    decrypted_numbers = processor.decrypt(encrypted_numbers)
-    print(f"Decrypted Numbers: {decrypted_numbers}")  

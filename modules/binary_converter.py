@@ -53,34 +53,5 @@ class BinaryConverter:
         return floats
 
 
-# exemplo de uso
-if __name__ == "__main__":
-    converter = BinaryConverter()
-    
-    original_numbers = [32.5, 132.0, 301.5]
-    print(f"Original Numbers: {original_numbers}")
-    
-    encrypted_binaries = converter.float_bin_converter(original_numbers)
-    print(f"Encrypted Binaries: {encrypted_binaries}")
-    
-    
-    binarios = [
-    "10100010100#0",
-    "10011101110#1",
-    "10101000110#0",
-    "10101000110#0",
-    "10101101011#1",
-    "110010000#0",
-    "10111001111#1",
-    "10101101011#1",
-    "10110010001#0",
-    "10101000110#0",
-    "10011100010#0"
-]
-    decrypted_numbers = converter.bin_float_converter(binarios)
-    print(f"Decrypted Numbers: {decrypted_numbers}")
 
-# teste hello world
-    
-    #descripto = converter.bin_float_converter(binarios)
-    #print(descripto)
+
