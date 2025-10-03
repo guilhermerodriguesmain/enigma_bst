@@ -115,7 +115,7 @@ Escolha com cuidado. A máquina não erra, mas você sim.
   
             caminho_decript = filedialog.askopenfilename(
             title="Selecione o arquivo TXT para descriptografar",
-            filetypes=[("Text files", "*.txt")]
+            filetypes=[("Text files", "*.json")]
         )
             main_decripting(caminho_decript)
             
