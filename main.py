@@ -15,10 +15,12 @@ from tkinter import Tk, filedialog
 def main_ecripting(a):
     pub_key=0
     private_key = pub_key**2
+    
     # Passo 1: Ler o arquivo de texto e converter para uma lista de caracteres
     input_text= ListStringConverter(a)
     char_list = input_text.convert() # retorna publickey, charlist
     pub_key=len(char_list)
+    
     # Passo 2: Converter a lista de caracteres para seus valores ASCII decimais
     ascii_converter = AsciiConverter()
     ascii_values = ascii_converter.convert_multiple_to_ascii(char_list)
@@ -37,7 +39,7 @@ def main_ecripting(a):
     tree = Tree()
     tree.pos_order_insert(binary_values)
     visualizer = TreeVisualizer(tree)
-    #visualizer.plot()
+    visualizer.plot()
     values = tree.post_order_list()
     
     
@@ -54,11 +56,12 @@ def main_decripting(a):
     input_text= ListStringConverter(a)
     char_list = input_text.convert_json()
     private_key = char_list[0]**2
+    
     # passo 2: montar arvore binaria com valores do json
     tree = Tree()
     tree.pos_order_insert(char_list[1])
     visualizer = TreeVisualizer(tree)
-    #visualizer.plot()
+    visualizer.plot()
     values = tree.post_order_list()
     
     # passo 3: converter valores binarios para decimais
@@ -78,9 +81,12 @@ def main_decripting(a):
     input_text.caracter_to_text(ascii_values,file_name)
     
     
-# execução
+# ------------------------------   execução   ----------------------------------------------------
 
+  
 if __name__ == "__main__":
+    root = Tk()
+    root.withdraw()
     
     while True:
         menu = """
@@ -101,22 +107,21 @@ Escolha com cuidado. A máquina não erra, mas você sim.
         decisao = int(input("\n\nQual vai ser sua escolha ? \nDIGITE AQUI:"))
         
         if decisao == 1:
-            Tk().withdraw() 
-            caminho_origin = filedialog.askopenfilename(title="Selecione o arquivo TXT para criptografar", filetypes=[("Text files", "*.txt")])
-            
-            entrada = input("Digite a chave publica: ")
-            key = int(entrada)
-
-            main_ecripting(caminho_origin,key)
+        
+            caminho_origin = filedialog.askopenfilename(
+            title="Selecione o arquivo TXT para criptografar",
+            filetypes=[("Text files", "*.txt")]
+        )
+            main_ecripting(caminho_origin)
             
         elif decisao == 2:
             
 #-----caminho_decript apresenta um bug de congelamento 
-            caminho_decript = filedialog.askopenfilename(title="Selecione o arquivo TXT para descriptografar", filetypes=[("Text files", "*.txt")])
-
-            entrada_2 = input("Digite a chave privada: ")
-            key_2 = int(entrada_2)
-            main_decripting(caminho_decript, key_2)
+            caminho_decript = filedialog.askopenfilename(
+            title="Selecione o arquivo TXT para descriptografar",
+            filetypes=[("Text files", "*.txt")]
+        )
+            main_decripting(caminho_decript)
             
         elif decisao == 0 :
             print("Você foi fraco e preferiu a lama ")
