@@ -10,6 +10,13 @@ from modules.binary_converter import BinaryConverter
 from modules.Tree import Tree 
 from modules.json_exporter import JsonExporter 
 from tkinter import Tk, filedialog
+import os
+
+from dotenv import load_dotenv
+
+
+# Carrega variáveis do .env
+load_dotenv()
 
 def main_ecripting(a):
     # Passo 1: Ler o arquivo de texto
@@ -18,7 +25,7 @@ def main_ecripting(a):
     
     # Passo 2: Definir as chaves APÓS ter a informação necessária
     pub_key = len(char_list)
-    private_key = pub_key**2 
+    private_key = int(os.getenv("PRIVATE_KEY"))
     
     # Passo 3: Converter para ASCII
     ascii_converter = AsciiConverter()
@@ -49,7 +56,8 @@ def main_decripting(a):
     pub_key, tree_values = input_text.convert_json()
     
     # Passo 2: Calcular a chave privada a partir da chave pública lida
-    private_key = pub_key**2
+    private_key = int(os.getenv("PRIVATE_KEY"))
+    
     
     # Passo 3: Montar a árvore com os valores lidos
     tree = Tree()
