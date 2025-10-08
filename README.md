@@ -24,6 +24,8 @@ O sistema é **gamificado**: o Grupo A gera mensagens encriptadas em JSON e o Gr
 - **Bibliotecas**:
     * SymPy: Para os cálculos matemáticos na etapa da integral.
 
+    * python-dotenv: Para carregar chave privada a partir de arquivos ".env".
+
     * Tkinter: Para a seleção de arquivos de forma gráfica (parte da biblioteca padrão do Python).
 
     * Pytest: Para a suíte de testes unitários e de integração.
@@ -59,7 +61,8 @@ enigma/
 │    ├── test_json_exporter.py
 │    ├── test_Tree.py
 │    └── test_main_integration.py
-│    
+│
+├── .env    
 ├── .gitignore
 ├── main.py
 ├── README.md
@@ -70,6 +73,7 @@ enigma/
 1 - Clone ou baixe este repositório;
 2 - Crie um ambiente virtual (recomendado);
 3 - Instale as dependências contidas no arquivo requeriments.txt;
+4 - Crie uma cópia do arquivo de exemplo ".env.exemplo" e renomeie para ".env"
 
 ## Como usar
 
